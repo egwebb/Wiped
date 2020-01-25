@@ -8,8 +8,6 @@ import pygame
 from pygame.locals import *
  
 def update(dt):
-  pygame.init()
-
   """
   Update game. Called once per frame.
   dt is the amount of time passed since last frame.
@@ -32,8 +30,6 @@ def update(dt):
     # Handle other events as you wish.
  
 def draw(screen):
-  pygame.init()
-
   """
   Draw things to the window. Called once per frame.
   """
