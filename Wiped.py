@@ -6,7 +6,14 @@ import sys
 # Import non-standard modules.
 import pygame
 from pygame.locals import *
- 
+
+def menuScreen(screen, enemy, ex, ey):
+  menux = 300
+  menuy = 220
+  # menubox = pygame.image.load("battlemenu.png")
+  # screen.blit(menubox, (menux, menuy))
+  screen.blit(enemy, (ex, ey))
+
 def update(dt):
   """
   Update game. Called once per frame.
@@ -17,7 +24,7 @@ def update(dt):
   x += v * dt
   
   and this will scale your velocity based on time. Extend as necessary."""
-  
+  menuScreen(screen, enemy, 10, 150)
   # Go through events that are passed to the script by the window.
   for event in pygame.event.get():
     # We need to handle these events. Initially the only one you'll want to care
@@ -39,7 +46,7 @@ def draw(screen):
   
   # Flip the display so that the things we drew actually show up.
   pygame.display.flip()
- 
+
 def runPyGame():
   # Initialise PyGame.
   pygame.init()
@@ -50,7 +57,7 @@ def runPyGame():
   # Set up the window.
   width, height = 640, 480
   screen = pygame.display.set_mode([width, height])
-  
+  enemy = pygame.image.load("Slime_32-bit_v2-1.png")
   # screen is the surface representing the window.
   # PyGame surfaces can be thought of as screen sections that you can draw onto.
   # You can also draw surfaces onto other surfaces, rotate surfaces, and transform surfaces.
@@ -62,4 +69,5 @@ def runPyGame():
     draw(screen)
     
     dt = fpsClock.tick(fps)
+    
 runPyGame()
