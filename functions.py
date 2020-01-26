@@ -1,34 +1,51 @@
 import pygame, sys
 from pygame.locals import *
 
-def spriteLoad(megaX, megaY, idle):
-	if megaX < 290:
-		megaX += 60
-	else:
-		if idle == True:
-			slime = pygame.image.load("assets\Slime_Upscaled_v2.png")
-			megaY += 2
-			if megaY > 60:
-				idle = False
-		else:
-			slime = pygame.image.load("assets\Slime_Upscaled_Squished_v2.png")
-			megaY -= 2
-			if megaY < 40:
-				idle = True
-	return megaX, megaY, idle
+def buttonSelect(event, selectX, selectY, vertical, horizontal):
 
-
-def buttonSelect(event, selectX, selectY):
 	if event.type == QUIT:
 		pygame.quit()
 		sys.exit()
 	if event.type == KEYDOWN:
 		if event.key == K_DOWN:
-			selectY = 50
+			vertical = 2
+			selectY = 400
 		if event.key == K_UP:
-			selectY = 20
+			vertical = 1
+			selectY = 300
 		if event.key == K_RIGHT:
-			selectX = 50
+			horizontal = 2
+			selectX = 400
 		if event.key == K_LEFT:
-			selectX = 20
-	return selectX, selectY
+			horizontal = 1
+			selectX = 200
+		if event.key == K_RETURN:
+			if vertical == 1 and horizontal == 1:
+				print("up, left")
+			if vertical == 1 and horizontal == 2:
+				print("up, right")
+			if vertical == 2 and horizontal == 1:
+				print("bottom, left")
+			if vertical == 2 and horizontal == 2:
+				print("bottom, right")
+	return selectX, selectY, vertical, horizontal
+
+def spriteLoad(X, Y, idle, slime):
+	if X < 290:
+		X += 60
+	else:
+		if idle == True:
+			if Y > 55:
+				slime = pygame.image.load("assets\Slime_Upscaled_Squished_v2.png")
+				# slime = pygame.image.load("assets\Skeleton_Upscaled_v2.png")
+				Y += 1
+			else:
+				Y += 3
+			if Y > 60:
+				idle = False
+		else:
+			slime = pygame.image.load("assets\Slime_Upscaled_v2.png")
+			Y -= 15
+			if Y < 40:
+				idle = True
+	return X, Y, idle, slime

@@ -1,36 +1,40 @@
 from functions import *
 
-DISP = pygame.display.set_mode((640, 400))
+DISP = pygame.display.set_mode((640, 480))
 pygame.display.set_caption("Wiped")
 FPS = 60
 
-skeleton = pygame.image.load("assets\Skeleton_Upscaled_v2.png")
-select = pygame.image.load("assets\megaman.png")
-slime = pygame.image.load("assets\Slime_Upscaled_v2.png")
-background = pygame.image.load("assets\darknessmyonlyfriend.png")		
-
 def main():
-	
-	megaX = 50
-	megaY = 50
-	selectX = 200
-	selectY = 200
+	vertical = 2
+	horizontal = 2
+
+	skeleton = pygame.image.load("assets\Skeleton_Upscaled_v2.png")
+	select = pygame.image.load("assets\Square.png")
+	slime = pygame.image.load("assets\Slime_Upscaled_v2.png")
+	# slime = pygame.image.load("assets\Skeleton_Upscaled_v2.png")
+	background = pygame.image.load("assets\\battlemenu_blank_original.png")		
+	blackground = pygame.image.load("assets\\black.png")
+	X = 250
+	Y = 480
+	selectX = 400
+	selectY = 375
 	idle = False
 	updateXY = ()
 	updateButton = ()
 	
 	while True:
-		DISP.blit(background, (0,0))
-		DISP.blit(slime, (megaX, megaY))
+		DISP.blit(blackground, (0, 0))
+		DISP.blit(background, (0, 240))
+		DISP.blit(slime, (X, Y))
 		DISP.blit(select, (selectX, selectY))
 		
 		for event in pygame.event.get():
 			pygame.display.update()
-			updateButton = buttonSelect(event, selectX, selectY)
-			(selectX, selectY) = updateButton
+			updateButton = buttonSelect(event, selectX, selectY, vertical, horizontal)
+			(selectX, selectY, vertical, horizontal) = updateButton
 
-		updateXY = spriteLoad(megaX, megaY, idle)	
-		(megaX, megaY, idle) = updateXY
+		updateXY = spriteLoad(X, Y, idle, slime)
+		(X, Y, idle, slime) = updateXY
 
 		pygame.display.update()
 		pygame.time.wait(FPS)
