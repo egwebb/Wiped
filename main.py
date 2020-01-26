@@ -1,89 +1,36 @@
-import pygame, sys
-from pygame.locals import *
+from functions import *
 
 DISP = pygame.display.set_mode((640, 400))
 pygame.display.set_caption("Wiped")
 FPS = 60
 
-select = pygame.image.load("megaman.png")
-slime = pygame.image.load("Slime_Upscaled_v2.png")
-background = pygame.image.load("darknessmyonlyfriend.png")
-
-def spriteLoad():
-	if megaX < 290:
-		megaX += 60
-	else:
-		if idle == True:
-			megaY += 2
-			if megaY > 60:
-				idle = False
-		else:
-			megaY -= 2
-			if megaY < 40:
-				idle = True
-
-
-def buttonSelect():
-	if event.type == QUIT:
-		pygame.quit()
-		sys.exit()
-	if event.type == KEYDOWN:
-		if event.key == K_DOWN:
-			selectY = 50
-		if event.key == K_UP:
-			selectY = 20
-		if event.key == K_RIGHT:
-			selectX = 50
-		if event.key == K_LEFT:
-			selectX = 20
+skeleton = pygame.image.load("assets\Skeleton_Upscaled_v2.png")
+select = pygame.image.load("assets\megaman.png")
+slime = pygame.image.load("assets\Slime_Upscaled_v2.png")
+background = pygame.image.load("assets\darknessmyonlyfriend.png")		
 
 def main():
 	
 	megaX = 50
 	megaY = 50
-
-	idle = False
-	
 	selectX = 200
 	selectY = 200
-
+	idle = False
+	updateXY = ()
+	updateButton = ()
+	
 	while True:
 		DISP.blit(background, (0,0))
 		DISP.blit(slime, (megaX, megaY))
 		DISP.blit(select, (selectX, selectY))
 		
-
 		for event in pygame.event.get():
 			pygame.display.update()
+			updateButton = buttonSelect(event, selectX, selectY)
+			(selectX, selectY) = updateButton
 
-			# if event.type == MOUSEBUTTONDOWN:
-
-			buttonSelect()
-			# if event.type == QUIT:
-			# 	pygame.quit()
-			# 	sys.exit()
-			# if event.type == KEYDOWN:
-			# 	if event.key == K_DOWN:
-			# 		selectY = 50
-			# 	if event.key == K_UP:
-			# 		selectY = 20
-			# 	if event.key == K_RIGHT:
-			# 		selectX = 50
-			# 	if event.key == K_LEFT:
-			# 		selectX = 20
-
-		spriteLoad()			
-		# if megaX < 290:
-		# 	megaX += 60
-		# else:
-		# 	if idle == True:
-		# 		megaY += 2
-		# 		if megaY > 60:
-		# 			idle = False
-		# 	else:
-		# 		megaY -= 2
-		# 		if megaY < 40:
-		# 			idle = True
+		updateXY = spriteLoad(megaX, megaY, idle)	
+		(megaX, megaY, idle) = updateXY
 
 		pygame.display.update()
 		pygame.time.wait(FPS)
